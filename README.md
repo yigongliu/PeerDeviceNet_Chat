@@ -181,7 +181,7 @@ All devices participating in chat will join a group named "WifiChat".
 * IRouterGroupHandler.aidl - callback interface to receive messages and group events such as peer join/leave.
 * Router.java - optionally included for convenience, define commonly used message ids; normally used for Intent based and Messenger based APIs; used here to convert IDL callbacks into Messages handled by GUI handler.
 
-	3.2. group communication setup during Acti vity life-cycle.
+	3.2. group communication setup during Activity life-cycle.
 
 		onCreate():
 		  //here we bind to idl group service
