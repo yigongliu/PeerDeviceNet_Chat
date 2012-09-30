@@ -31,6 +31,7 @@ All three chat apps have two components:
 		
 All devices participating in chat will join a group named "WifiChat".		
 
+
 1. Message plumbing using "intenting" API (ChatByIntentingActivity.java).
 
    The "intenting" API works by sending application messages as intents to GROUP_SERVICE, and
@@ -103,6 +104,8 @@ All devices participating in chat will join a group named "WifiChat".
 				//something went wrong, show error message
 			}
 		}
+		}
+
 
 2. Message plumbing using Messenger API (ChatByMessengerActivity.java).
 	
@@ -172,11 +175,11 @@ All devices participating in chat will join a group named "WifiChat".
 
 	3.1. Add the following aidl files under package com.xconns.peerdevicenet.
 
-	* DeviceInfo.java - a simple class containing info about device: name, address, port
-	* DeviceInfo.aidl
-	* IRouterGroupService.aidl - async calls to join/leave group and send messages
-	* IRouterGroupHandler.aidl - callback interface to receive messages and group events such as peer join/leave.
-	* Router.java - optionally included for convenience, define commonly used message ids; normally used for Intent based and Messenger based APIs; used here to convert IDL callbacks into Messages handled by GUI handler.
+* DeviceInfo.java - a simple class containing info about device: name, address, port
+* DeviceInfo.aidl
+* IRouterGroupService.aidl - async calls to join/leave group and send messages
+* IRouterGroupHandler.aidl - callback interface to receive messages and group events such as peer join/leave.
+* Router.java - optionally included for convenience, define commonly used message ids; normally used for Intent based and Messenger based APIs; used here to convert IDL callbacks into Messages handled by GUI handler.
 
 	3.2. group communication setup during Acti vity life-cycle.
 
