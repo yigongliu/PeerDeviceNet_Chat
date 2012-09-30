@@ -83,10 +83,10 @@ All devices participating in chat will join a group named "WifiChat".
 
 	The registered broadcast receiver will override onReceive() method to receive application messages and group events, process them based on intent action names (or message types) and display them in ListView.
 
-	Please note that application messages contents are passed as "extra" data items with the following keys:
+Please note that application messages contents are passed as "extra" data items with the following keys:
 
-	* Router.PEER_NAME(S)/PEER_ADDR(S)/PEER_PORT(S): info about peer devices, used for PEER_JOIN/LEAVE events.
-	* Router.MSG_DATA: chat messages.
+* Router.PEER_NAME(S)/PEER_ADDR(S)/PEER_PORT(S): info about peer devices, used for PEER_JOIN/LEAVE events.
+* Router.MSG_DATA: chat messages.
    		
 		mReceiver = new BroadcastReceiver() {
 		public void onReceive(Context context, Intent intent) {
