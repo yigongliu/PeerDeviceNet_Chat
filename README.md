@@ -86,8 +86,10 @@ All devices participating in chat will join a group named "WifiChat".
 
 	Please note that application messages contents are passed as "extra" data items with the following keys:
 
-* Router.PEER_NAME(S)/PEER_ADDR(S)/PEER_PORT(S): info about peer devices, used for PEER_JOIN/LEAVE events.
-* Router.MSG_DATA: chat messages.
+		* Router.PEER_NAME(S)/PEER_ADDR(S)/PEER_PORT(S): info about peer devices, used for PEER_JOIN/LEAVE events.
+		* Router.MSG_DATA: chat messages.
+
+	The broadcast receiver is defined as following:
    		
 		mReceiver = new BroadcastReceiver() {
 		public void onReceive(Context context, Intent intent) {
