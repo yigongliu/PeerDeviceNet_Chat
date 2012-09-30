@@ -1,7 +1,4 @@
-PeerDeviceNet_Chat
-==================
-
-This Chat sample app demonstrates how to write chat apps using PeerDeviceNet 
+This sample demonstrates how to write chat apps using PeerDeviceNet 
 group communication APIs. There is a chat app implementation for each kind of APIs:
    . intenting API: ChatByIntentingActivity.java
    . Messenger API: ChatByMessengerActivity.java
@@ -71,7 +68,8 @@ All devices participating in chat will join a group named "WifiChat".
 			startService(intent);
 			
    1.4 Receive Message:
-   		The registered broadcast receiver will override onReceive() method to receive application messages and group events, process them based on intent action names (or message types) and display them in ListView.
+   		The registered broadcast receiver will override onReceive() method to receive application messages 
+   		and group events, process them based on intent action names (or message types) and display them in ListView.
    		Please note that application messages contents are passed as "extra" data items with the following keys:
    		. Router.PEER_NAME(S)/PEER_ADDR(S)/PEER_PORT(S): info about peer devices, used for PEER_JOIN/LEAVE events.
    		. Router.MSG_DATA: chat messages.
@@ -94,7 +92,12 @@ All devices participating in chat will join a group named "WifiChat".
 
 2. Message plumbing using Messenger API (ChatByMessengerActivity.java).
 	
-	Messenger API follows android's internal messaging pattern "Messenger" and extends it across devices. The app code is similar to normal "Messenger" based app. A messenger is returned when binding to service and it is used to send messages. Another messenger is registered with service to receive messages. Application messages are distinguished by integer message ids defined in Router.java. Application data are passed as a bundle with data items indexed using key names defined in Router.java.
+	Messenger API follows android's internal messaging pattern "Messenger" and extends it across devices.
+	The app code is similar to normal "Messenger" based app. A messenger is returned when binding to
+	service and it is used to send messages. Another messenger is registered with service to receive
+	messages. Application messages are distinguished by integer message ids defined in Router.java. 
+	Application data are 
+	passed as a bundle with data items indexed using key names defined in Router.java.
 	
 	2.1 group communication setup during Activity life-cycle event.
 		onCreate():
@@ -103,11 +106,11 @@ All devices participating in chat will join a group named "WifiChat".
 				bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 			
 		onServiceConnected():
-		    once bound to service, register a receiver messenger to receive messages:
+		  once bound to service, register a receiver messenger to receive messages:
 				Message msg = Message.obtain(null, Router.MsgId.REGISTER_RECEIVER);
 				msg.replyTo = mMessenger;
 				mService.send(msg);
-		    then join group
+		  then join group
 			  	Bundle b = new Bundle();
 				b.putString(Router.GROUP_ID, groupId);
 				Message msg = Message.obtain(null, Router.MsgId.JOIN_GROUP);
@@ -133,7 +136,9 @@ All devices participating in chat will join a group named "WifiChat".
 				unbindService(mConnection);
 				
 	2.3 send messages.
-		when sending a chat message to peers, pack the message and group id inside a bundle; wrap the bundle inside a Message object with id = Router.MsgId.SEND_MSG; and send it thru messenger.
+		when sending a chat message to peers, pack the message and group id inside a bundle; wrap
+		the bundle inside a Message object with id = Router.MsgId.SEND_MSG; and send it thru
+		messenger.
 		sendMsg(String msg_data):
 			Message msg = Message.obtain(null, Router.MsgId.SEND_MSG, 0, 0);
 			Bundle b = new Bundle();
@@ -145,19 +150,26 @@ All devices participating in chat will join a group named "WifiChat".
 	2.4 receive message.
 		a receiver messenger is defined with a handler (IncomingHandler) to handle received messages:
 			mMessenger = new Messenger(new IncomingHandler());
-		IncomingHandler will override its handleMessage() method to process group events and display chat message in conversation ListView.
+		IncomingHandler will override its handleMessage() method to process group events and display
+			chat message in conversation ListView.
 
 3. Message plumbing using AIDL API (ChatByAidlActivity.java).
-	AIDL API follows android's IDL IPC model and extends it across devices. To use this API, apps need to add PeerDeviceNet group communication related IDL files to project and bind to group service. Since AIDL API methods are all asynchronous, we'll register a group handler to handle received messages and group events.
+	AIDL API follows android's IDL IPC model and extends it across devices. To use this API,
+	apps need to add PeerDeviceNet group communication related IDL files to project and bind to
+	group service. Since AIDL API methods are all asynchronous, we'll register a group handler
+	to handle received messages and group events.
 
 	3.1 Add the following aidl files under package com.xconns.peerdevicenet:
 		DeviceInfo.java - a simple class containing info about device: name, address, port
 		DeviceInfo.aidl
  		IRouterGroupService.aidl - async calls to join/leave group and send messages
- 		IRouterGroupHandler.aidl - callback interface to receive messages and group 						events such as peer join/leave.
- 		Router.java - optionally included for convenience, define commonly used message 				ids; normally used for Intent based and Messenger based APIs; 						used here to convert IDL callbacks into Messages handled by GUI handler.
+ 		IRouterGroupHandler.aidl - callback interface to receive messages and group events 
+ 									such as peer join/leave.
+ 		Router.java - optionally included for convenience, define commonly used message ids;
+ 					  normally used for Intent based and Messenger based APIs; used here to 
+ 					  convert IDL callbacks into Messages handled by GUI handler.
 
-	3.2 group communication setup during Acti vity life-cycle
+	3.2 group communication setup during Activity life-cycle
 		onCreate():
 		  here we bind to idl group service
 			Intent intent = new Intent("com.xconns.peerdevicenet.GroupService");
