@@ -17,6 +17,7 @@ ChatActivity.java defines a main menu allowing you choose a specific chat implem
 The first menu entry allows you reuse PeerDeviceNet connection manager to connect 
 your device with other devices. Its callback function has the following code
 to bring up connection manager:
+
 	Intent intent = new Intent("com.xconns.peerdevicenet.CONNECTION_MANAGEMENT");
 	startActivity(intent);
 
