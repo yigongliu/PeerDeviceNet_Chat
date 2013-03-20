@@ -19,8 +19,8 @@
 package com.xconns.peerdevicenet;
 
 import com.xconns.peerdevicenet.IRouterGroupHandler;
-import android.os.Bundle;
 import com.xconns.peerdevicenet.DeviceInfo;
+import android.os.Bundle;
 
 /* pure async api */
 interface IRouterGroupService {

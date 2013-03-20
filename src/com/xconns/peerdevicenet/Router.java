@@ -32,16 +32,18 @@ public class Router {
 	public static final String ACTION_CONNECTION_SERVICE = "com.xconns.peerdevicenet.ConnectionService";
 	public static final String ACTION_GROUP_SERVICE = "com.xconns.peerdevicenet.GroupService";
 	public static final String ACTION_MESSENGER_SERVICE = "com.xconns.peerdevicenet.Messenger";
+	//for starting conn mgr service
+	public static final String ACTION_CONNECTION_MANAGEMENT = "com.xconns.peerdevicenet.CONNECTION_MANAGEMENT";
 	//for starting remote intent service
 	public static final String ACTION_REMOTE_INTENT_SERVICE = "com.xconns.peerdevicenet.RemoteIntentService";
-	//for starting conn mgr service
-	public static final String ACTION_PEER_DISCOVERY_SERVICE = "com.xconns.peerdevicenet.PeerDiscoveryService";
-	public static final String ACTION_CONNECTION_MANAGEMENT = "com.xconns.peerdevicenet.CONNECTION_MANAGEMENT";
-	public static final String ACTION_RESET_SERVICE = "com.xconns.peerdevicenet.RESET_SERVICE";
+
+	//life-cycle events
+	public static final String ACTION_ROUTER_STARTUP = "com.xconns.peerdevicenet.Startup";
+	public static final String ACTION_ROUTER_RESET = "com.xconns.peerdevicenet.Reset";
+	public static final String ACTION_ROUTER_SHUTDOWN = "com.xconns.peerdevicenet.Shutdown";
 
 	// intents for msg-passing msg ids
 	public static final String ACTION_ERROR = "com.xconns.peerdevicenet.ERROR";
-	public static final String ACTION_SHUTDOWN = "com.xconns.peerdevicenet.shutdown";
 	public static final String ACTION_START_SEARCH = "com.xconns.peerdevicenet.START_SEARCH";
 	public static final String ACTION_STOP_SEARCH = "com.xconns.peerdevicenet.STOP_SEARCH";
 	public static final String ACTION_SEARCH_FOUND_DEVICE = "com.xconns.peerdevicenet.SEARCH_FOUND_DEVICE";
@@ -62,9 +64,15 @@ public class Router {
 	public static final String ACTION_PEER_LEAVE = "com.xconns.peerdevicenet.PEER_LEAVE";
 	public static final String ACTION_SEND_MSG = "com.xconns.peerdevicenet.SEND_MSG";
 	public static final String ACTION_RECV_MSG = "com.xconns.peerdevicenet.RECV_MSG";
-	public static final String ACTION_SET_DEVICE_INFO = "com.xconns.peerdevicenet.SET_DEVICE_INFO";
+	public static final String ACTION_SET_CONNECTION_INFO = "com.xconns.peerdevicenet.SET_CONNECTION_INFO";
+	public static final String ACTION_GET_CONNECTION_INFO = "com.xconns.peerdevicenet.GET_CONNECTION_INFO";
 	public static final String ACTION_GET_DEVICE_INFO = "com.xconns.peerdevicenet.GET_DEVICE_INFO";
 	public static final String ACTION_GET_CONNECTED_PEERS = "com.xconns.peerdevicenet.GET_CONNECTED_PEERS";
+	public static final String ACTION_GET_NETWORKS = "com.xconns.peerdevicenet.GET_NETWORKS";
+	public static final String ACTION_GET_ACTIVE_NETWORK = "com.xconns.peerdevicenet.GET_ACTIVE_NETWORK";
+	public static final String ACTION_ACTIVATE_NETWORK = "com.xconns.peerdevicenet.ACTIVATE_NETWORK";
+	public static final String ACTION_NETWORK_CONNECTED = "com.xconns.peerdevicenet.NETWORK_CONNECTED";
+	public static final String ACTION_NETWORK_DISCONNECTED = "com.xconns.peerdevicenet.NETWORK_DISCONNECTED";
 
 	//remote intent related
 	public static final String ACTION_START_REMOTE_ACTIVITY = "com.xconns.peerdevicenet.START_REMOTE_ACTIVITY";
@@ -109,18 +117,25 @@ public class Router {
 		public final static int RECV_MSG = -10510;
 		
 		//
-		public final static int SET_DEVICE_INFO = -10600;
-		public final static int GET_DEVICE_INFO = -10601;
-		public final static int GET_CONNECTED_PEERS = -10602;
+		public final static int SET_CONNECTION_INFO = -10600;
+		public final static int GET_CONNECTION_INFO = -10601;
+		public final static int GET_DEVICE_INFO = -10602;
+		public final static int GET_CONNECTED_PEERS = -10603;
 		
 		//
-		public final static int REGISTER_RECEIVER = -10700;
-		public final static int UNREGISTER_RECEIVER = -10701;
+		public static final int GET_NETWORKS = 10700;
+		public static final int GET_ACTIVE_NETWORK = 10701;
+		public static final int ACTIVATE_NETWORK = 10702;
+		public static final int NETWORK_CONNECTED = 10703;
+		public static final int NETWORK_DISCONNECTED = 10704;
+		//
+		public final static int REGISTER_RECEIVER = -10800;
+		public final static int UNREGISTER_RECEIVER = -10801;
 		
 		//
-		public final static int START_REMOTE_ACTIVITY = -10800;
-		public final static int START_REMOTE_SERVICE = -10801;
-		public final static int SEND_REMOTE_BROADCAST = -10802;
+		public final static int START_REMOTE_ACTIVITY = -10900;
+		public final static int START_REMOTE_SERVICE = -10901;
+		public final static int SEND_REMOTE_BROADCAST = -10902;
 	}
 	
 	public final static class ConnFailureCode {
@@ -149,8 +164,28 @@ public class Router {
 	public static final String PEER_NAMES = "PEER_NAMES";
 	public static final String PEER_ADDRS = "PEER_ADDRS";
 	public static final String PEER_PORTS = "PEER_PORTS";
+	//keys for net info
+	public static final String NET_TYPE = "NET_TYPE";
+	public static final String NET_NAME = "NET_NAME";
+	public static final String NET_PASS = "NET_PASS";
+	public static final String NET_INFO = "NET_INFO";
+	public static final String NET_INTF_NAME = "NET_INTF_NAME";
+	public static final String NET_ADDR = "NET_ADDR";
+	public static final String NET_INTF_MCAST = "NET_INTF_MCAST";
+
+	public static final String NET_TYPES = "NET_TYPES";
+	public static final String NET_NAMES = "NET_NAMES";
+	public static final String NET_PASSES = "NET_PASSES";
+	public static final String NET_INFOS = "NET_INFOS";
+	public static final String NET_INTF_NAMES = "NET_INTF_NAMES";
+	public static final String NET_ADDRS = "NET_ADDRS";
+
 	//
 	public static final String TIMEOUT = "TIMEOUT";
+	public static final String LIVENESS_TIMEOUT = "LIVENESSTIMEOUT";
+	public static final String CONNECT_TIMEOUT = "CONNECT_TIMEOUT";
+	public static final String SEARCH_TIMEOUT = "SEARCH_TIMEOUT";
+	public static final String USE_SSL = "USE_SSL";
 	public static final String AUTHENTICATION_TOKEN = "AUTHENTICATION_TOKEN";
 	public static final String CONN_DENY_CODE = "CONNECTION_DENY_CODE";
 	//remote intent bundle keys
@@ -207,12 +242,24 @@ public class Router {
 			return "SEND_MSG";
 		case MsgId.RECV_MSG:
 			return "RECV_MSG";
-		case MsgId.SET_DEVICE_INFO:
-			return "SET_DEVICE_INFO";
+		case MsgId.SET_CONNECTION_INFO:
+			return "SET_CONNECTION_INFO";
+		case MsgId.GET_CONNECTION_INFO:
+			return "GET_CONNECTION_INFO";
 		case MsgId.GET_DEVICE_INFO:
 			return "GET_DEVICE_INFO";
 		case MsgId.GET_CONNECTED_PEERS:
 			return "GET_CONNECTED_PEERS";
+		case MsgId.GET_NETWORKS:
+			return "GET_NETWORKS";
+		case MsgId.GET_ACTIVE_NETWORK:
+			return "GET_ACTIVE_NETWORK";
+		case MsgId.ACTIVATE_NETWORK:
+			return "ACTIVATE_NETWORK";
+		case MsgId.NETWORK_CONNECTED:
+			return "ETWORK_CONNECTED";
+		case MsgId.NETWORK_DISCONNECTED:
+			return "ETWORK_DISCONNECTED";
 		case MsgId.REGISTER_RECEIVER:
 			return "REGISTER_RECEIVER";
 		case MsgId.UNREGISTER_RECEIVER:
