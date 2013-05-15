@@ -1,16 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xconns.samples.chat"
     android:versionCode="1"
-    android:versionName="1.1" >
+    android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
 
     <uses-permission android:name="com.xconns.peerdevicenet.permission.REMOTE_MESSAGING" />
-    
+
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".ChatActivity"
             android:label="@string/app_name" >
@@ -26,7 +29,6 @@
         </activity>
         <activity android:name=".ChatByAidlActivity" >
         </activity>
-        
     </application>
 
 </manifest>

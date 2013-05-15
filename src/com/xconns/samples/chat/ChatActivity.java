@@ -32,7 +32,7 @@ public class ChatActivity extends Activity {
 				int chosenId = mApiTypeRadioGroup.getCheckedRadioButtonId();
 				switch(chosenId) {
 				case R.id.conn_mgr:
-					Intent intent = new Intent("com.xconns.peerdevicenet.CONNECTION_MANAGEMENT");
+					Intent intent = new Intent("com.xconns.peerdevicenet.CONNECTOR");
 					startActivity(intent);
 					break;
 				case R.id.chat_intenting:

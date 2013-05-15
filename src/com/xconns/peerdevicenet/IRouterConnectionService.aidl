@@ -39,7 +39,7 @@ interface IRouterConnectionService {
 	oneway void activateNetwork(int sessionId, in NetInfo net);
 	
 	//peer device discovery/search
-	oneway void startPeerSearch(int sessionId, int timeout);
+	oneway void startPeerSearch(int sessionId, in DeviceInfo groupLeader, int timeout);
 	oneway void stopPeerSearch(int sessionId);
 	
 	//------ connection api ------

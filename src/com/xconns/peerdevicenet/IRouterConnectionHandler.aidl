@@ -33,7 +33,8 @@ interface IRouterConnectionHandler {
 	//get current active network
 	oneway void onGetActiveNetwork(in NetInfo net);
 	oneway void onNetworkActivated(in NetInfo net);
-	
+	//search related
+	oneway void onSearchStart(in DeviceInfo groupLeader);
 	oneway void onSearchFoundDevice(in DeviceInfo device, boolean useSSL);
 	oneway void onSearchComplete();
 	

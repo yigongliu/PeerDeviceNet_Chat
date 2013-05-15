@@ -27,12 +27,13 @@ package com.xconns.peerdevicenet;
  */
 public class Router {
 	//service startup intents
-	//for starting Connector service
+	//for starting ConneCONNECTOR service
 	public static final String ACTION_SERVICE = "com.xconns.peerdevicenet.Service";
 	public static final String ACTION_CONNECTION_SERVICE = "com.xconns.peerdevicenet.ConnectionService";
 	public static final String ACTION_GROUP_SERVICE = "com.xconns.peerdevicenet.GroupService";
 	public static final String ACTION_MESSENGER_SERVICE = "com.xconns.peerdevicenet.Messenger";
 	//for starting conn mgr service
+	public static final String ACTION_CONNECTOR = "com.xconns.peerdevicenet.CONNECTOR";
 	public static final String ACTION_CONNECTION_MANAGEMENT = "com.xconns.peerdevicenet.CONNECTION_MANAGEMENT";
 	//for starting remote intent service
 	public static final String ACTION_REMOTE_INTENT_SERVICE = "com.xconns.peerdevicenet.RemoteIntentService";
@@ -46,6 +47,7 @@ public class Router {
 	public static final String ACTION_ERROR = "com.xconns.peerdevicenet.ERROR";
 	public static final String ACTION_START_SEARCH = "com.xconns.peerdevicenet.START_SEARCH";
 	public static final String ACTION_STOP_SEARCH = "com.xconns.peerdevicenet.STOP_SEARCH";
+	public static final String ACTION_SEARCH_START = "com.xconns.peerdevicenet.SEARCH_START";
 	public static final String ACTION_SEARCH_FOUND_DEVICE = "com.xconns.peerdevicenet.SEARCH_FOUND_DEVICE";
 	public static final String ACTION_SEARCH_COMPLETE = "com.xconns.peerdevicenet.SEARCH_COMPLETE";
 	public static final String ACTION_CONNECT = "com.xconns.peerdevicenet.CONNECT";
@@ -89,8 +91,9 @@ public class Router {
 		public final static int START_SEARCH = -10200;
 		public final static int STOP_SEARCH = -10201;
 		//state change
-		public final static int SEARCH_FOUND_DEVICE = -10210;
-		public final static int SEARCH_COMPLETE = -10211;
+		public final static int SEARCH_START = -10210;
+		public final static int SEARCH_FOUND_DEVICE = -10211;
+		public final static int SEARCH_COMPLETE = -10212;
 		
 		//cmds
 		public final static int CONNECT = -10300;
@@ -167,7 +170,9 @@ public class Router {
 	//keys for net info
 	public static final String NET_TYPE = "NET_TYPE";
 	public static final String NET_NAME = "NET_NAME";
+	public static final String NET_ENCRYPT = "NET_ENCRYPT";
 	public static final String NET_PASS = "NET_PASS";
+	public static final String NET_HIDDEN = "NET_HIDDEN";
 	public static final String NET_INFO = "NET_INFO";
 	public static final String NET_INTF_NAME = "NET_INTF_NAME";
 	public static final String NET_ADDR = "NET_ADDR";
@@ -175,7 +180,9 @@ public class Router {
 
 	public static final String NET_TYPES = "NET_TYPES";
 	public static final String NET_NAMES = "NET_NAMES";
+	public static final String NET_ENCRYPTS = "NET_ENCRYPTS";
 	public static final String NET_PASSES = "NET_PASSES";
+	public static final String NET_HIDDENS = "NET_HIDDENS";
 	public static final String NET_INFOS = "NET_INFOS";
 	public static final String NET_INTF_NAMES = "NET_INTF_NAMES";
 	public static final String NET_ADDRS = "NET_ADDRS";
@@ -206,6 +213,8 @@ public class Router {
 			return "START_SEARCH";
 		case MsgId.STOP_SEARCH:
 			return "STOP_SEARCH";
+		case MsgId.SEARCH_START:
+			return "SEARCH_START";
 		case MsgId.SEARCH_FOUND_DEVICE:
 			return "SEARCH_FOUND_DEVICE";
 		case MsgId.SEARCH_COMPLETE:
